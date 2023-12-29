@@ -6,6 +6,7 @@ import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.solr.SolrConstants;
 import org.apache.camel.model.dataformat.JsonLibrary;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.ArrayList;
 
@@ -21,6 +22,9 @@ public abstract class AbstractQueueConsumerRoute extends RouteBuilder {
     public abstract Processor getValidationAndConvertToSidProcessor();
 
     public abstract Processor getErrorMsgToDeadLetterMsgProcessor();
+
+    @Value("${solr.url}")
+    private String solrUrl;
 
     @Override
     public void configure() throws Exception {
@@ -74,14 +78,14 @@ public abstract class AbstractQueueConsumerRoute extends RouteBuilder {
 
         from("direct:splitNIndex")
                 .split(body())
-                    .to("direct:index")
+                .to("direct:index")
                 .end();
 
         from("direct:index")
                 .process(getValidationAndConvertToSidProcessor())
                 .setHeader(SolrConstants.COLLECTION, constant("medicines"))
                 .setHeader(SolrConstants.OPERATION, constant(SolrConstants.OPERATION_INSERT))
-                .to("solr://localhost:8983/solr");
+                .to(solrUrl);
 
     }
 }

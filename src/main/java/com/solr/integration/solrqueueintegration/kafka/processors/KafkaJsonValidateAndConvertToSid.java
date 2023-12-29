@@ -1,4 +1,4 @@
-package com.solr.integration.solrqueueintegration.activemq.processors;
+package com.solr.integration.solrqueueintegration.kafka.processors;
 
 import com.solr.integration.solrqueueintegration.common.components.ConvertToSolrInputDocument;
 import org.apache.camel.Exchange;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 @Component
-public class ActiveMQJsonValidateAndConvertToSid implements Processor {
+public class KafkaJsonValidateAndConvertToSid implements Processor {
 
     @Autowired
     private ConvertToSolrInputDocument convertToSolrInputDocument;

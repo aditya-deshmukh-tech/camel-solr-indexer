@@ -1,4 +1,4 @@
-package com.solr.integration.solrqueueintegration.activemq.components;
+package com.solr.integration.solrqueueintegration.common.components;
 
 import com.solr.integration.solrqueueintegration.common.enumfields.JsonInputDataEnum;
 import com.solr.integration.solrqueueintegration.common.enumfields.JsonTransformEnum;
